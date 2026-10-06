@@ -1,0 +1,1 @@
+"""Authenticated upstream WebSocket ingestion."""

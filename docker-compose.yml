@@ -1,0 +1,23 @@
+services:
+  pricing-engine:
+    build: .
+    environment:
+      UPSTREAM_URL: ${UPSTREAM_URL:-wss://v3-prod.livefxhub.com/ws/algo}
+      API_KEY: ${API_KEY:-}
+      API_SECRET: ${API_SECRET:-}
+      PORT: ${PORT:-8080}
+      DATA_DIR: /app/data
+      OUTPUT_ENCODING: ${OUTPUT_ENCODING:-json}
+      PRICE_BASIS: ${PRICE_BASIS:-mid}
+      SNAPSHOT_INTERVAL_MS: ${SNAPSHOT_INTERVAL_MS:-30000}
+      MAX_CLIENT_BUFFER_BYTES: ${MAX_CLIENT_BUFFER_BYTES:-1048576}
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+    ports:
+      - "8080:8080"
+    volumes:
+      - pricing-data:/app/data
+    restart: unless-stopped
+    stop_grace_period: 15s
+
+volumes:
+  pricing-data:
